@@ -1,0 +1,43 @@
+class Solution {
+    /**
+     * @param {number[]} nums
+     * @return {number[][]}
+     */
+    threeSum(nums) {
+
+        nums.sort((a, b) => a - b);
+
+        const res = [];
+
+        if (nums[0] > 0) return [];
+
+        for (let i = 0; i < nums.length - 2; i++){
+
+            let j = i + 1;
+            let k = nums.length - 1;
+
+            if (nums[i - 1] == nums[i]) continue;
+
+            while (j < k) {
+                let sum = nums[i] + nums[j] + nums[k];
+                if (sum == 0) {
+                  res.push([nums[i],nums[j],nums[k]]);
+                  j++;
+                  k--;
+                  //if (nums[j] === nums[j - 1]) j++;
+                  //while keeps re-checking after every execution.
+                  //The outer while (j < k) loop has no opportunity 
+                  //to catch a problem mid-body, 
+                  //j and k could have changed at this point.
+                  while (j < k && nums[j] === nums[j - 1]) j++;
+                } else if (sum < 0){
+                  j++;
+                } else {
+                  k--;
+                }           
+            }
+            
+        }
+        return res;
+    }
+}
